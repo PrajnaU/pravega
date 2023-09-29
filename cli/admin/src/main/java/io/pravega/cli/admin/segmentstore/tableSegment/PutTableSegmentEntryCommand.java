@@ -44,22 +44,8 @@ public class PutTableSegmentEntryCommand extends TableSegmentCommand {
         final String fullyQualifiedTableSegmentName = getArg(0);
         final String segmentStoreHost = getArg(1);
         final String key = getArg(2);
-        final String valuepair= getArg(3);
-        Map<String, String> values = new LinkedHashMap<>();
-        String[] pairs=valuepair.split(";");
-        for(String keyValue : pairs)
-        {
-            String[] Eachpair = keyValue.split("=");
-            String valuepairKey = Eachpair[0];
-            String valuepairValue = Eachpair[1];
-            if("null".equals(valuepairValue))
-            {
-                valuepairValue = null;
-            }
-            values.put(valuepairKey,valuepairValue);
-        }
-String valuewithComma = values.toString();
-        String value = valuewithComma.replace(',',';').replace('{',' ').replace('}',' ').replaceAll("\\s+","");
+        final String value= getArg(3);
+
         @Cleanup
         CuratorFramework zkClient = createZKClient();
         @Cleanup
